@@ -39,8 +39,18 @@ class UserListViewController: UIViewController {
     
     private func setupView() {
         self.view.applyGradient(colors: [
-            UIColor(red: 255/255, green: 79/255, blue: 128/255, alpha: 1).cgColor,
-            UIColor(red: 194/255, green: 58/255, blue: 172/255, alpha: 1).cgColor
+            UIColor(
+                red: 255/255,
+                green: 79/255,
+                blue: 128/255,
+                alpha: 1
+            ).cgColor,
+            UIColor(
+                red: 194/255,
+                green: 58/255,
+                blue: 172/255,
+                alpha: 1
+            ).cgColor
         ])
     }
     
@@ -73,17 +83,22 @@ class UserListViewController: UIViewController {
 }
 
 extension UserListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return usersList?.userContent.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserListTableViewCell.id, for: indexPath)
         guard let userListCell = cell as? UserListTableViewCell else { return cell }
         guard let usersList else { return cell}
         userListCell.selectionStyle = .none
         userListCell.set(user: usersList.userContent[indexPath.row])
-        
         
         return userListCell
     }
@@ -97,8 +112,6 @@ extension UserListViewController: UITableViewDataSource {
             }
         }
     }
-
-    
 }
 
 extension UserListViewController: UITableViewDelegate {

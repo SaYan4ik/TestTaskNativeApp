@@ -22,8 +22,6 @@ struct UserModel: Codable {
         case totalElements = "totalElements"
         case totalPages = "totalPages"
     }
-
-    
 }
 
 struct UserContentModel: Codable {
@@ -36,5 +34,4 @@ struct UserContentModel: Codable {
         case name = "name"
         case image = "image"
     }
-
 }

@@ -55,7 +55,5 @@ class UserListTableViewCell: UITableViewCell {
         
         guard let imageString = user.image else { return }
         loadImage(url: imageString)
-        
     }
-    
 }
