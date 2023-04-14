@@ -63,23 +63,22 @@ class UserListViewController: UIViewController {
         } failure: { error in
             self.showAlert(title: "Error", message: "\(error.localizedDescription)")
         }
-
     }
     
     func getDataWithPagin(page: Int) {
+        
         NetworkeManager().getDataWithPaging(page: page) { result in
             self.usersList?.userContent.append(contentsOf: result.userContent)
             self.usersList?.totalPages = result.totalPages
+            self.usersList?.page = page
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         } failure: { error in
             self.showAlert(title: "Error", message: "\(error.localizedDescription)")
-
+            
         }
-
     }
-    
 }
 
 extension UserListViewController: UITableViewDataSource {
@@ -106,9 +105,10 @@ extension UserListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let usersList else { return }
         if indexPath.item == usersList.userContent.count - 1 {
-            self.page += 1
-            if usersList.totalPages != usersList.page {
-                getDataWithPagin(page: page)
+            if usersList.page <= usersList.totalPages{
+                getDataWithPagin(page: self.page)
+                self.page += 1
+ 
             }
         }
     }
@@ -117,14 +117,15 @@ extension UserListViewController: UITableViewDataSource {
 extension UserListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.sourceType = .camera
         selectdIndex = indexPath
+
         present(picker, animated: true)
+
     }
-    
 }
 extension UserListViewController: UINavigationControllerDelegate {
     
