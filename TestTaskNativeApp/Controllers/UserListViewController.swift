@@ -11,7 +11,6 @@ class UserListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var usersList: UserModel?
-    private var networkeManager = NetworkeManager()
     private var selectdIndex = IndexPath(row: 0, section: 0)
     private var page = 0
     
